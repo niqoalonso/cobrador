@@ -13,6 +13,8 @@ return new class extends Migration
             $table->id('id_local');
             $table->string('identificador');//Idenfiticador interno.
             $table->string('direccion');
+            $table->unsignedBigInteger('area_id')->nullable();
+            $table->foreign('area_id')->references('id_area')->on('areas');
             $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')->references('id_estado')->on('estados');
 

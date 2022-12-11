@@ -28,7 +28,6 @@ class GestionRolController extends Controller
 
     public function store(RoleRequest $request)
     {   
-        return response()->json($request);
         $role = Role::create(['name' => $request->nombre]);
         $role->givePermissionTo($request->permisos);
     
