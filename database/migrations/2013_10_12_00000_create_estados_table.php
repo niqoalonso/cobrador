@@ -17,6 +17,10 @@ return new class extends Migration
 
         DB::table('estados')->insert(['nombre' => 'Activo']);
         DB::table('estados')->insert(['nombre' => 'Inactivo']);
+        DB::table('estados')->insert(['nombre' => 'Disponible']);
+        DB::table('estados')->insert(['nombre' => 'No Disponible']);
+        DB::table('estados')->insert(['nombre' => 'Vigente']);
+        DB::table('estados')->insert(['nombre' => 'No Vigente']);
     }
 
     public function down()

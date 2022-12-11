@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Local extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = "id_local";
+
+    protected $fillable = ['identificador', 'direccion', 'area_id', 'estado_id'];
+
+    public function Area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
 }

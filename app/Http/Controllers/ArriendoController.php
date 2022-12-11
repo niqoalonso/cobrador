@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAreaRequest;
-use App\Http\Requests\UpdateAreaRequest;
-use App\Models\Area;
+use App\Http\Requests\StoreArriendoRequest;
+use App\Http\Requests\UpdateArriendoRequest;
+use App\Models\Arriendo;
 
-class AreaController extends Controller
+class ArriendoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class AreaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAreaRequest  $request
+     * @param  \App\Http\Requests\StoreArriendoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAreaRequest $request)
+    public function store(StoreArriendoRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class AreaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\Arriendo  $arriendo
      * @return \Illuminate\Http\Response
      */
-    public function show(Area $area)
+    public function show(Arriendo $arriendo)
     {
         //
     }
@@ -53,10 +53,10 @@ class AreaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\Arriendo  $arriendo
      * @return \Illuminate\Http\Response
      */
-    public function edit(Area $area)
+    public function edit(Arriendo $arriendo)
     {
         //
     }
@@ -64,11 +64,11 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAreaRequest  $request
-     * @param  \App\Models\Area  $area
+     * @param  \App\Http\Requests\UpdateArriendoRequest  $request
+     * @param  \App\Models\Arriendo  $arriendo
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAreaRequest $request, Area $area)
+    public function update(UpdateArriendoRequest $request, Arriendo $arriendo)
     {
         //
     }
@@ -76,10 +76,10 @@ class AreaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Area  $area
+     * @param  \App\Models\Arriendo  $arriendo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Area $area)
+    public function destroy(Arriendo $arriendo)
     {
         //
     }

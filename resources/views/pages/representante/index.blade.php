@@ -9,37 +9,13 @@
 
 @section('content')
     <div class="page-content">
-        @if(count($roles) == 0)
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">Gestión Usuarios</h4>
-                        </div>
-                    </div>
-                </div>
-                <!-- end page title -->
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Acceso Restringido</h4>
-                                <p class="card-title-desc">No hemos podido detectar Roles ingresados en el sistema, dirigase al modulo <b><a href="{{route('GestionUser.index')}}">"Roles & Permisos"</a></b> para gestionar sus roles.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @else
             <div class="container-fluid">
 
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">Gestión Usuarios</h4>
+                            <h4 class="mb-sm-0 font-size-18">Gestión Representante</h4>
                         </div>
                     </div>
                 </div>
@@ -49,11 +25,11 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Nuevo Usuario</h4>
-                                <p class="card-title-desc">Crea nuevos usuarios para poder gestionar tu plataforma.</p>
+                                <h4 class="card-title">Nuevo Representante</h4>
+                                <p class="card-title-desc">Crea nuevos representante para asignarle clientes y gestionar arriendos.</p>
                             </div>
 
-                            <form id="formUsuario">
+                            <form id="formRepresentante">
                                 <div class="card-body p-4">
                                     <div class="row">
                                         <div class="col-lg-4">
@@ -82,25 +58,19 @@
                                                     <label class="form-label" for="formrow-firstname-input">Correo Electronico</label>
                                                     <input type="text" class="form-control" name="correo" id="formrow-firstname-input">
                                                 </div>
-                            
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="formrow-firstname-input">Roles</label>
-                                                <select name="rol" class="form-control" id="">
-                                                    <option value="">Seleccionar</option>
-                                                    @foreach ($roles as $item)
-                                                        <option value="{{$item->name}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label class="form-label" for="formrow-firstname-input">Celular</label>
+                                                <input type="text" class="form-control" name="celular" id="formrow-firstname-input">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row divFormulario" style="display: none;">
                                         <div class="mt-4">
-                                            <button type="submit" class="btn btn-primary w-md btn-submit">Crear Usuario</button>
+                                            <button type="submit" class="btn btn-primary w-md btn-submit">Crear Representante</button>
                                             <button type="button" class="btn btn-primary waves-effect waves-light btn-preloader" disabled style="display: none;">
                                                 <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Espere
                                             </button>
@@ -117,11 +87,11 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Edición Usuario</h4>
-                                <p class="card-title-desc">Edita la información usuarios para poder gestionar tu plataforma.</p>
+                                <h4 class="card-title">Edición Representante</h4>
+                                <p class="card-title-desc">Edita la información representante.</p>
                             </div>
 
-                            <form id="formEditUsuario">
+                            <form id="formEditRepresentante">
                                 @method('PUT')
                                 <div class="card-body p-4">
                                     <div class="row">
@@ -157,20 +127,15 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="formrow-firstname-input">Roles</label>
-                                                <select name="rol" class="form-control body-usersEdit" id="">
-                                                    <option value="">Seleccionar</option>
-                                                    @foreach ($roles as $item)
-                                                        <option value="{{$item->name}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label class="form-label" for="formrow-firstname-input">Celular</label>
+                                                <input type="text" class="form-control inputCelular" name="celular" id="formrow-firstname-input">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="mt-4">
-                                            <button type="submit" class="btn btn-primary w-md btn-submitE">Actualizar Usuario</button>
+                                            <button type="submit" class="btn btn-primary w-md btn-submitE">Actualizar Representante</button>
                                             <button type="button" class="btn btn-danger w-md btn-submitE" onclick="CancelarEdicion()">Cancelar</button>
                                             <button type="button" class="btn btn-primary waves-effect waves-light btn-preloaderE" disabled style="display: none;">
                                                 <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Espere
@@ -188,26 +153,30 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Roles</h4>
+                                <h4 class="card-title">Representantes</h4>
                             </div>
                             <div class="card-body">
 
                                 <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                                     <thead>
                                     <tr>
+                                        <th>RUT</th>
                                         <th>Nombre</th>
                                         <th width="20%">Correo</th>
+                                        <th width="20%">Celular</th>
                                         <th width="10%">Acción</th>
                                     </tr>
                                     </thead>
 
-                                    <tbody class="body-users">
-                                        @foreach ($users as $item)
-                                            <tr>
-                                                <td>{{$item->name}}</td>
-                                                <td>{{$item->email}}</td>
+                                    <tbody class="body-representantes">
+                                        @foreach ($representantes as $item)
+                                            <tr>    
+                                                <td>{{$item->rut}}</td>
+                                                <td>{{$item->nombres}} {{$item->apellidos}}</td>
+                                                <td>{{$item->correo}}</td>
+                                                <td>+56 {{$item->celular}}</td>
                                                 <td>
-                                                    <a href="javascript:void(0)" onclick="Editar(this.id)" id="{{$item->id}}" class="text-warning p-2"><i class="fa fa-edit"></i></a>
+                                                    <a href="javascript:void(0)" onclick="Editar(this.id)" id="{{$item->id_representante}}" class="text-warning p-2"><i class="fa fa-edit"></i></a>
                                                     <a href="" class="text-danger p-2"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
@@ -221,7 +190,7 @@
                 </div> <!-- end row -->
 
             </div> 
-        @endif
+       
     </div>
     <!-- End Page-content -->
 
@@ -252,6 +221,6 @@
         
     <script src="{{asset('assets/js/app.js')}}"></script>
 
-    <script src="{{asset('pages/js/usuario.js')}}"></script>
+    <script src="{{asset('pages/js/representante.js')}}"></script>
 
 @endsection
