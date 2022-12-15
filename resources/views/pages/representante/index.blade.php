@@ -177,7 +177,7 @@
                                                 <td>+56 {{$item->celular}}</td>
                                                 <td>
                                                     <a href="javascript:void(0)" onclick="Editar(this.id)" id="{{$item->id_representante}}" class="text-warning p-2"><i class="fa fa-edit"></i></a>
-                                                    <a href="" class="text-danger p-2"><i class="fa fa-trash"></i></a>
+                                                    <a href="javascript:void(0)" onclick="Eliminar(this.id)" id="{{$item->id_representante}}" class="text-danger p-2"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

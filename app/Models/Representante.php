@@ -19,4 +19,10 @@ class Representante extends Model
             'celular',
             'estado_id'
     ];
+
+    public function Empresa()
+    {
+        return $this->belongsToMany(Empresa::class);
+    }
 }
+ 

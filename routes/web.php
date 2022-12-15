@@ -7,6 +7,7 @@ use App\Http\Controllers\WebMasterController;
 use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\AreaLocalController;
+use App\Http\Controllers\ArriendoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,15 +37,23 @@ Route::get('/verificarUsoRol/{id}', [GestionRolController::class, 'verificarUsoR
 //Gestion Representante
 Route::resource('/gestionRepresentante', RepresentanteController::class);
 Route::get('gestionRepresentante/{rut}/verificar', [RepresentanteController::class, 'verificarRepresentante']);
+Route::get('verificarUsoRepresentante/{id}', [RepresentanteController::class, 'verificarUsoRepresentante']);
 
 //Gestion Cliente / Empresa
 
 Route::resource('gestionEmpresas', EmpresaController::class);
 Route::get('gestionEmpresas/{rut}/verificar', [EmpresaController::class, 'verificarEmpresa']);
+Route::get('/ListCliente', [EmpresaController::class, 'getListCliente'])->name('getLlistEmpresa');
+
+//Gestion Arriendos
+
+Route::resource('gestionArriendo', ArriendoController::class);
+Route::get('/gestionArriendoOnly/{id}', [ArriendoController::class, 'gestionArriendoOnly']);
 
 
 //Gestion Area y Local 
 Route::get('/gestionLocales', [AreaLocalController::class, 'index'])->name('gestionLocales.index');
+Route::get('/getLocalesDisponibles', [AreaLocalController::class, 'getLocalDisponible']);
 
 //Gestión Area
 Route::get('/gestionLocales/area', [AreaLocalController::class, 'getArea'])->name('gestionLocales.getArea');
@@ -59,6 +68,8 @@ Route::get('/gestionLocales/local', [AreaLocalController::class, 'getLocal'])->n
 Route::post('/crearLocal', [AreaLocalController::class, 'storeLocal']);
 Route::get('/editarLocal/{id}', [AreaLocalController::class, 'editarLocal']);
 Route::put('/updateLocal/{id}', [AreaLocalController::class, 'updateLocal']);
+Route::get('/verificarUsoLocal/{id}', [AreaLocalController::class, 'verificarUsoLocal']);
+Route::delete('/eliminarLocal/{id}', [AreaLocalController::class, 'eliminarLocal']);
 
 
 

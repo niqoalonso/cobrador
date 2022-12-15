@@ -20,12 +20,12 @@
 @section('content')
     <div class="page-content">
         @if(count($representantes) == 0)    
-            <div class="container-fluid">
+            <div class="container-fluid infoRepresentante">
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">Gestión Usuarios</h4>
+                            <h4 class="mb-sm-0 font-size-18">Gestión Cliente</h4>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                     </div>
                 </div>
             </div> 
-        @else
-            <div class="container-fluid">
+        @elseif(count($locales) == 0)    
+            <div class="container-fluid infoLocales">
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -53,7 +53,30 @@
                     </div>
                 </div>
                 <!-- end page title -->
-                <form id="formEmpresa">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Acceso Restringido</h4>
+                                <p class="card-title-desc">No hemos podido detectar locales ingresados o disponibles en el sistema, dirigase al modulo <b><a href="{{route('gestionLocales.index')}}"> "Gestión Locales" </a></b> para gestionar sus clientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        @else
+            <div class="container-fluid infoFormulario">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Gestión Cliente</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <form id="formEmpresaArriendo">
                     <div class="row divFormNuevo">
                         <div class="col-lg-12">
                             <div class="card">
@@ -156,9 +179,8 @@
                                     <p class="card-title-desc">Ingresa la información del arriendo asociado al cliente.</p>
                                 </div>
 
-                                <form id="formEmpresa">
                                     <div class="card-body p-4">
-                                        <div class="row divFormulario">
+                                        <div class="row">
                                             <div class="col-3">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="formrow-firstname-input">Contrato</label>
@@ -184,6 +206,16 @@
                                                     <input type="date" class="form-control" name="fecha_termino" id="formrow-firstname-input">
                                                 </div>
                                             </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="formrow-firstname-input">Locales</label>
+                                                    <select class="form-control js-example-basic-multiple" name="locales[]" multiple="multiple" style="width: 100%">
+                                                        @foreach ($locales as $item)
+                                                            <option value="{{$item->id_local}}">{{$item->identificador}}</option>
+                                                        @endforeach
+                                                      </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                             </div>
@@ -196,7 +228,7 @@
                                 <div class="card-body p-4">
                                     <div class="row ">
                                         <div class="mt-4">
-                                            <button type="submit" class="btn btn-primary w-md btn-submit">Crear Representante</button>
+                                            <button type="submit" class="btn btn-primary w-md btn-submit">Ingresar Informacion</button>
                                             <button type="button" class="btn btn-primary waves-effect waves-light btn-preloader" disabled style="display: none;">
                                                 <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Espere
                                             </button>

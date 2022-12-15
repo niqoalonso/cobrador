@@ -15,7 +15,8 @@ class AreaLocalController extends Controller
     public function index()
     {   
         $areas = Area::where('estado_id',1)->get();
-        $locales = Local::where('estado_id', 1)->get();
+        $locales = Local::all();
+        $locales->load('Estado');
 
         return view('pages.area_local.index', compact('areas', 'locales'));
     }
@@ -74,14 +75,14 @@ class AreaLocalController extends Controller
 
     public function getLocal()
     {
-        $locales = Local::where('estado_id', 1)->get();
-        $locales->load('area');
+        $locales = Local::all();
+        $locales->load('area', 'estado');
         return response()->json($locales);
     }
 
     public function storeLocal(Request $request)
     {
-        Local::create(['identificador' => $request->identificador, 'direccion' => $request->direccion, 'area_id' => $request->area, 'estado_id' => 1]);
+        Local::create(['identificador' => $request->identificador, 'direccion' => $request->direccion, 'area_id' => $request->area, 'estado_id' => 3]);
 
         return response()->json(['mensaje' => 'Local agregada exitosamente.']);
     }
@@ -101,6 +102,26 @@ class AreaLocalController extends Controller
         Local::updateOrCreate(['id_local' => $request->id],['identificador' => $request->identificador, 'direccion' => $request->direccion, 'area_id' => $request->area]);
 
         return response()->json(['mensaje' => 'Local actualizado exitosamente.']);
+    }
+
+    public function verificarUsoLocal($id)
+    {
+        $local = Local::find($id);
+      
+            if(count($local->Arriendo) == 0)
+            {
+                return response()->json(['codigoEstado' => '0', 'mensaje' => '¿Esta seguro que desea eliminar este Local?']);
+            }else{
+                return response()->json(['codigoEstado' => '1', 'mensaje' => 'Local esta en uso. Esta asociado a uno arriendo.']);
+            }
+
+    }
+
+    public function eliminarLocal($id)
+    {
+        Local::destroy($id);
+
+        return response()->json(['mensaje' => 'Local eliminada exitosamente.']);
     }
 
 }

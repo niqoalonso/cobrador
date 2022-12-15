@@ -12,15 +12,28 @@ class Empresa extends Model
     protected $primaryKey = "id_empresa";
 
     protected $fillable = [
+            'sku',
             'rut',
             'razon_social',
             'nombre_fantasia',
             'correo',
             'telefono',
             'celular',
-            'solcicita_fac_email',
+            'solicita_fac_email',
             'alias',
             'url_perfil',
-            'estado_id',
+            'estado_id', 
+            'representante_id',
+            'estado_id'
     ];
+
+    public function Representante()
+    {
+        return $this->belongsTo(Representante::class, 'representante_id');
+    }
+
+    public function Estado()
+    {
+        return $this->belongsTo(Estado::class, 'estado_id');
+    }
 }

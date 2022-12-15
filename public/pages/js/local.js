@@ -20,7 +20,7 @@ function LoadLocal()
                                 '<td>'+i.area.nombre+'</td>'+
                                 '<td>'+
                                 '<a href="javascript:void(0)" onclick="EditarLocal(this.id)" id="'+i.id_local+'" class="text-warning p-2"><i class="fa fa-edit"></i></a>'+
-                                '<a href="javascript:void(0)" class="text-danger p-2"><i class="fa fa-trash"></i></a>'+
+                                '<a href="javascript:void(0)" onclick="EliminarLocal(this.id)" id="'+i.id_local+'" class="text-danger p-2"><i class="fa fa-trash"></i></a>'+
                                 '</td>'+
                                 '</tr>');
             }); 
@@ -75,7 +75,7 @@ jQuery('#formLocal').on("submit", function(e){
 
 function EditarLocal(id)
 {
-    $.ajaxSetup({ 
+    $.ajaxSetup({  
         headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
@@ -166,3 +166,67 @@ jQuery('#formEditarLocal').on("submit", function(e){
     });
 
 });
+
+
+function EliminarLocal(id)
+{       
+    $.ajaxSetup({ 
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/verificarUsoLocal/"+id,
+        method: 'GET',
+        success: function(result){
+            if(result.codigoEstado == 0)
+            {
+                Swal.fire({
+                    title: 'Eliminar Local',
+                    text: result.mensaje,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar.'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajaxSetup({ 
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: "/eliminarLocal/"+id,
+                            method: 'DELETE',
+                            success: function(result){
+                                alertify.error(result.mensaje);
+                                LoadLocal();
+                            },
+                            error: function(result){
+                                console.clear();
+                                $.each(result.responseJSON.errors, function(v,i){
+                                    alertify.warning(i);
+                                });
+                                $('.btn-submit').show();
+                                $('.btn-preloader').hide();
+                            }
+                        });
+                    }
+                });
+            }else{
+                alertify.error(result.mensaje);
+            }
+            
+        },
+        error: function(result){
+            console.clear();
+            $.each(result.responseJSON.errors, function(v,i){
+                alertify.warning(i);
+            });
+            $('.btn-submit').show();
+            $('.btn-preloader').hide();
+        }
+    });
+    
+}

@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{route('getLlistEmpresa')}}">
                                 <span data-key="t-chat">Listado Clientes</span>
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                 </li>
                 
                 <li>
-                    <a href="#">
+                    <a href="{{route('gestionArriendo.index')}}">
                         <i data-feather="users"></i>
                         <span data-key="t-dashboard">Gestión Arriendos</span>
                     </a>

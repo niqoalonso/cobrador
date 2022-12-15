@@ -70,8 +70,22 @@ class RepresentanteController extends Controller
         return response()->json(['mensaje' => 'Representante actualizado exitosamente.']);
     }
 
+    public function verificarUsoRepresentante($id)
+    {
+        $rep = Representante::find($id);
+      
+            if(count($rep->Empresa) == 0)
+            {
+                return response()->json(['codigoEstado' => '0', 'mensaje' => '¿Esta seguro que desea eliminar este Representante?']);
+            }else{
+                return response()->json(['codigoEstado' => '1', 'mensaje' => 'Representante esta en uso. Esta asociado a uno cliente activo.']);
+            }
+    }
+
     public function destroy($id)
     {
-        
+        Representante::destroy($id);
+
+        return response()->json(['mensaje' => 'Representante elimiado exitosamente.']);
     }
 }

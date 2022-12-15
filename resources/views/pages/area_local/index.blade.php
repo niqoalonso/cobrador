@@ -254,7 +254,7 @@
                                                                     <td>{{$item->area->nombre}}</td>
                                                                     <td>
                                                                         <a href="javascript:void(0)" onclick="EditarLocal(this.id)" id="{{$item->id_local}}" class="text-warning p-2"><i class="fa fa-edit"></i></a>
-                                                                        <a href="" class="text-danger p-2"><i class="fa fa-trash"></i></a>
+                                                                        <a href="javascript:void(0)" onclick="EliminarLocal(this.id)" id="{{$item->id_local}}" class="text-danger p-2"><i class="fa fa-trash"></i></a>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

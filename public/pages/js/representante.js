@@ -241,3 +241,66 @@ function CancelarEdicion()
 
     alertify.error('Edición cancelada.');
 }
+
+function Eliminar(id)
+{       
+    $.ajaxSetup({ 
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/verificarUsoRepresentante/"+id,
+        method: 'GET',
+        success: function(result){
+            if(result.codigoEstado == 0)
+            {
+                Swal.fire({
+                    title: 'Eliminar Representante',
+                    text: result.mensaje,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar.'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajaxSetup({ 
+                            headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: "/gestionRepresentante/"+id,
+                            method: 'DELETE',
+                            success: function(result){
+                                alertify.error(result.mensaje);
+                                LoadRepresentante();
+                            },
+                            error: function(result){
+                                console.clear();
+                                $.each(result.responseJSON.errors, function(v,i){
+                                    alertify.warning(i);
+                                });
+                                $('.btn-submit').show();
+                                $('.btn-preloader').hide();
+                            }
+                        });
+                    }
+                });
+            }else{
+                alertify.error(result.mensaje);
+            }
+            
+        },
+        error: function(result){
+            console.clear();
+            $.each(result.responseJSON.errors, function(v,i){
+                alertify.warning(i);
+            });
+            $('.btn-submit').show();
+            $('.btn-preloader').hide();
+        }
+    });
+    
+}

@@ -12,6 +12,7 @@ class Arriendo extends Model
     protected $primaryKey = "id_arriendo";
 
     protected $fillable = [
+            'sku',
             'valor_arriendo',
             'representante_id',
             'url_contrato',
@@ -23,4 +24,9 @@ class Arriendo extends Model
             'estado_id',
             'empresa_id'
     ];
+
+    public function Local()
+    {
+        return $this->belongsToMany(Local::class);
+    }
 }

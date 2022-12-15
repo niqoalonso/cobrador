@@ -1,3 +1,32 @@
+$(document).ready(function() {
+    $(".js-example-basic-multiple").select2();
+});
+
+function Local()
+{
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/gestionEmpresas",
+        data: formData,
+        dataType: 'JSON',
+        contentType: false,
+        cache: false, 
+        processData: false,
+        success: function(result){
+            console.log(result.locales);
+        },
+        error: function(result){
+          
+        }
+    });
+}
+
 function checkRut(rut) {
     // Despejar Puntos
     var valor = rut.value.replace('.','');
@@ -86,43 +115,6 @@ function verificarRut(rut)
     });
 }
 
-jQuery('#formRepresentante').on("submit", function(e){
-    e.preventDefault();
-    $('.btn-submit').hide();
-    $('.btn-preloader').show();
-    $.ajaxSetup({ 
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }
-    });
-    $.ajax({
-        url: "/gestionRepresentante",
-        method: 'POST',
-        data: new FormData(this),
-        dataType: 'JSON',
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(result){
-            LoadRepresentante();
-            alertify.success(result.mensaje);
-            $("#formRepresentante")[0].reset();
-            $('.btn-submit').show();
-            $('.btn-preloader').hide();
-            $('.divFormulario').hide();
-        },
-        error: function(result){
-            console.clear();
-            $.each(result.responseJSON.errors, function(v,i){
-                alertify.error(i[0]);
-            });
-            $('.btn-submit').show();
-            $('.btn-preloader').hide();
-        }
-    });
-
-});
-
 var image = document.getElementById('image');
 var cropper;
 
@@ -174,7 +166,7 @@ $("body").on("change", ".image", function(e){
     }
 });
 
-jQuery('#formEmpresa').on("submit", function(e){
+jQuery('#formEmpresaArriendo').on("submit", function(e){
     e.preventDefault();
     $('.btn-submit').hide();
     $('.btn-preloader').show();
@@ -197,7 +189,34 @@ jQuery('#formEmpresa').on("submit", function(e){
             cache: false, 
             processData: false,
             success: function(result){
-                $("#formEmpresa")[0].reset();
+                $("#formEmpresaArriendo")[0].reset();
+                if(result.locales.length == 0)
+                {
+                    $('.infoFormulario').html('<div class="container-fluid infoLocales">'+
+                                            '<div class="row">'+
+                                            '<div class="col-12">'+
+                                            '<div class="page-title-box d-sm-flex align-items-center justify-content-between">'+
+                                            '<h4 class="mb-sm-0 font-size-18">Gestión Cliente</h4>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '<div class="row">'+
+                                            '<div class="col-lg-12">'+
+                                            '<div class="card">'+
+                                            '<div class="card-header">'+
+                                            '<h4 class="card-title">Acceso Restringido</h4>'+
+                                            '<p class="card-title-desc">No hemos podido detectar locales ingresados o disponibles en el sistema en el sistema, dirigase al modulo <b><a href="/gestionLocales"> "Gestión Locales" </a></b> para gestionar sus clientes.</p>'+
+                                            '</div></div></div></div></div>');
+                    $('.js-example-basic-multiple').empty();
+                    $(".js-example-basic-multiple").val('').trigger('change');
+                }else{
+                    $('.js-example-basic-multiple').empty();
+                    $.each(result.locales, function(v,i){
+                        $('.js-example-basic-multiple').append('<option value="'+i.id_local+'">'+i.identificador+'</option>');
+                    });
+                    $(".js-example-basic-multiple").val('').trigger('change');
+                    $('.divFormulario').hide();
+                }
                 alertify.success(result.mensaje);
             },
             error: function(result){
@@ -243,7 +262,35 @@ jQuery('#formEmpresa').on("submit", function(e){
                         cache: false,
                         processData: false,
                         success: function(result){
-                            $("#formEmpresa")[0].reset();
+                            $("#formEmpresaArriendo")[0].reset();
+                            if(result.locales.length == 0)
+                            {
+                                $('.infoFormulario').html('<div class="container-fluid infoLocales">'+
+                                                        '<div class="row">'+
+                                                        '<div class="col-12">'+
+                                                        '<div class="page-title-box d-sm-flex align-items-center justify-content-between">'+
+                                                        '<h4 class="mb-sm-0 font-size-18">Gestión Cliente</h4>'+
+                                                        '</div>'+
+                                                        '</div>'+
+                                                        '</div>'+
+                                                        '<div class="row">'+
+                                                        '<div class="col-lg-12">'+
+                                                        '<div class="card">'+
+                                                        '<div class="card-header">'+
+                                                        '<h4 class="card-title">Acceso Restringido</h4>'+
+                                                        '<p class="card-title-desc">No hemos podido detectar locales ingresados o disponibles en el sistema en el sistema, dirigase al modulo <b><a href="/gestionLocales"> "Gestión Locales" </a></b> para gestionar sus clientes.</p>'+
+                                                        '</div></div></div></div></div>');
+                                $('.js-example-basic-multiple').empty();
+                                $(".js-example-basic-multiple").val('').trigger('change');
+                               
+                            }else{
+                                $('.js-example-basic-multiple').empty();
+                                $.each(result.locales, function(v,i){
+                                    $('.js-example-basic-multiple').append('<option value="'+i.id_local+'">'+i.identificador+'</option>');
+                                });
+                                $(".js-example-basic-multiple").val('').trigger('change');
+                                $('.divFormulario').hide();
+                            }
                             cropper.destroy();
                             $('#image').attr('src', '');
                             alertify.success(result.mensaje);

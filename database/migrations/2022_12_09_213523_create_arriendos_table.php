@@ -11,6 +11,7 @@ return new class extends Migration
     {
         Schema::create('arriendos', function (Blueprint $table) {
             $table->id('id_arriendo');
+            $table->string('sku');
             $table->string('valor_arriendo');
             $table->string('url_contrato');
             $table->string('saldo_a_favor')->default(0);
