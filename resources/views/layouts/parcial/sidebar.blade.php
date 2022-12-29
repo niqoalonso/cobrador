@@ -6,6 +6,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" data-key="t-menu">Menu</li>
 
+               
                 <li>
                     <a href="/">
                         <i data-feather="home"></i>
@@ -13,61 +14,77 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="{{route('GestionUser.index')}}">
-                        <i data-feather="users"></i>
-                        <span data-key="t-dashboard">Gestión Usuarios</span>
-                    </a>
-                </li>
+                @can('Gestion Usuarios')
+                    <li>
+                        <a href="{{route('GestionUser.index')}}">
+                            <i data-feather="users"></i>
+                            <span data-key="t-dashboard">Gestión Usuarios</span>
+                        </a>
+                    </li>
+                @endcan
 
+                @can('Gestion Roles & Permisos')
                 <li>
                     <a href="{{route('gestion-rol-permision.index')}}">
                         <i data-feather="users"></i>
                         <span data-key="t-dashboard">Roles & Permisos</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('Gestion Locales & Areas')
                 <li>
                     <a href="{{route('gestionLocales.index')}}">
                         <i data-feather="users"></i>
                         <span data-key="t-dashboard">Gestión Locales</span>
                     </a>
                 </li>
+                @endcan
 
-                <li class="menu-title" data-key="t-menu">Negocio</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="grid"></i>
-                        <span data-key="t-apps">Gestión Clientes</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{route('gestionRepresentante.index')}}">
-                                <span data-key="t-calendar">Representantes</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{route('gestionEmpresas.index')}}">
-                                <span data-key="t-chat">Clientes</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('getLlistEmpresa')}}">
-                                <span data-key="t-chat">Listado Clientes</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @canany(['Gestion Representante', 'Gestion Clientes', 'Gestion Arriendo'])
+                    <li class="menu-title" data-key="t-menu">Negocio</li>
+                @endcanany
                 
-                <li>
-                    <a href="{{route('gestionArriendo.index')}}">
-                        <i data-feather="users"></i>
-                        <span data-key="t-dashboard">Gestión Arriendos</span>
-                    </a>
-                </li>
-
+                @canany(['Gestion Representante', 'Gestion Clientes'])
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow">
+                            <i data-feather="grid"></i>
+                            <span data-key="t-apps">Gestión Clientes</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            @can('Gestion Representante')
+                                <li>
+                                    <a href="{{route('gestionRepresentante.index')}}">
+                                        <span data-key="t-calendar">Representantes</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Gestion Clientes')
+                                <li>
+                                    <a href="{{route('gestionEmpresas.index')}}">
+                                        <span data-key="t-chat">Clientes</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Gestion Clientes')
+                                <li>
+                                    <a href="{{route('getLlistEmpresa')}}">
+                                        <span data-key="t-chat">Listado Clientes</span>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+                
+                @can('Gestion Arriendo')
+                    <li>
+                        <a href="{{route('gestionArriendo.index')}}">
+                            <i data-feather="users"></i>
+                            <span data-key="t-dashboard">Gestión Arriendos</span>
+                        </a>
+                    </li>
+                @endcan
                 
 
                 <li class="menu-title" data-key="t-menu">Otros</li>

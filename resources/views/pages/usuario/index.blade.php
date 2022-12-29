@@ -31,6 +31,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         @else
             <div class="container-fluid">
@@ -112,6 +113,8 @@
                         </div>
                     </div>
                 </div>
+                
+
 
                 <div class="row divFormEditar" style="display: none;">
                     <div class="col-lg-12">

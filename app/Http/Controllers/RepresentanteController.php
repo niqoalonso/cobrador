@@ -7,6 +7,10 @@ use App\Models\Representante;
 
 class RepresentanteController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware(['auth']);
+    }
 
     public function index()
     {   

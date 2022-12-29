@@ -20,35 +20,39 @@ use App\Http\Controllers\ArriendoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::redirect('/', '/login');
 
 Route::resource('/administracion', WebMasterController::class);
 
 //Gestion Usuario
-Route::resource('GestionUser', UserController::class);
-Route::get('GestionUser/{rut}/verificar', [UserController::class, 'verificarUser']);
+Route::resource('GestionUser', UserController::class)->middleware('can:Gestion Usuarios');
+Route::get('GestionUser/{rut}/verificar', [UserController::class, 'verificarUser'])->middleware('can:Gestion Usuarios');
 
 //Gestion Permisos & Roles
-Route::resource('gestion-rol-permision', GestionRolController::class);
-Route::get('/verificarUsoRol/{id}', [GestionRolController::class, 'verificarUsoROl']);
+Route::resource('gestion-rol-permision', GestionRolController::class)->middleware('can:Gestion Roles & Permisos');
+Route::get('/verificarUsoRol/{id}', [GestionRolController::class, 'verificarUsoROl'])->middleware('can:Gestion Roles & Permisos');
 
 //Gestion Representante
-Route::resource('/gestionRepresentante', RepresentanteController::class);
-Route::get('gestionRepresentante/{rut}/verificar', [RepresentanteController::class, 'verificarRepresentante']);
-Route::get('verificarUsoRepresentante/{id}', [RepresentanteController::class, 'verificarUsoRepresentante']);
+Route::resource('/gestionRepresentante', RepresentanteController::class)->middleware('can:Gestion Representante');
+Route::get('gestionRepresentante/{rut}/verificar', [RepresentanteController::class, 'verificarRepresentante'])->middleware('can:Gestion Representante');
+Route::get('verificarUsoRepresentante/{id}', [RepresentanteController::class, 'verificarUsoRepresentante'])->middleware('can:Gestion Representante');
 
 //Gestion Cliente / Empresa
 
-Route::resource('gestionEmpresas', EmpresaController::class);
-Route::get('gestionEmpresas/{rut}/verificar', [EmpresaController::class, 'verificarEmpresa']);
-Route::get('/ListCliente', [EmpresaController::class, 'getListCliente'])->name('getLlistEmpresa');
+Route::resource('gestionEmpresas', EmpresaController::class)->middleware('can:Gestion Clientes');
+Route::get('gestionEmpresas/{rut}/verificar', [EmpresaController::class, 'verificarEmpresa'])->middleware('can:Gestion Clientes');
+Route::get('/ListCliente', [EmpresaController::class, 'getListCliente'])->name('getLlistEmpresa')->middleware('can:Gestion Clientes');
+Route::get('/redireccionarListadoArriendo', [EmpresaController::class, 'redireccionarArriendo'])->middleware('can:Gestion Clientes');
 
 //Gestion Arriendos
 
-Route::resource('gestionArriendo', ArriendoController::class);
-Route::get('/gestionArriendoOnly/{id}', [ArriendoController::class, 'gestionArriendoOnly']);
+Route::resource('gestionArriendo', ArriendoController::class)->middleware('can:Gestion Arriendo');
+Route::get('/gestionArriendoOnly/{id}', [ArriendoController::class, 'gestionArriendoOnly'])->middleware('can:Gestion Arriendo');
+
 
 
 //Gestion Area y Local 

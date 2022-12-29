@@ -11,6 +11,11 @@ use App\Http\Requests\Administracion\Usuario\UsuarioRequest;
 class UserController extends Controller
 {
 
+    public function __construct()
+    {
+      $this->middleware(['auth']);
+    }
+
     public function index()
     {   
         $roles = Role::all();
@@ -37,7 +42,6 @@ class UserController extends Controller
     public function create()
     {
         $users = User::where('estado_id', 1)->get();
-
         return response()->json($users);
     }
 

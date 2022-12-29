@@ -9,6 +9,8 @@ use App\Models\Representante;
 use App\Models\Local;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Auth;
 
 class EmpresaController extends Controller
 {
@@ -192,6 +194,13 @@ class EmpresaController extends Controller
         ]);
 
         return response()->json(['mensaje' => 'Cliente actualizado exitosamente.', 'empresa' => $imgName]);
+    }
+
+    public function redireccionarArriendo()
+    {
+        $user = User::find(Auth::user()->id);
+        
+        return response()->json($user->can('Gestion Arriendo'));
     }
 
     public function destroy(Empresa $empresa)

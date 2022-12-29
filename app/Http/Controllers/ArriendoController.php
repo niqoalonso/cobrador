@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ArriendoController extends Controller
 {
-
+    public function __construct()
+    {
+      $this->middleware(['auth']);
+    }
+    
     public function index()
     {   
         $empresas = Empresa::where('estado_id', 1)->get();

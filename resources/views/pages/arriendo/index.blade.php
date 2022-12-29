@@ -78,45 +78,6 @@
                 </div> <!-- end col -->
             </div> <!-- end row -->
 
-
-            <div class="row" >
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Nuevo ROL</h4>
-                            <p class="card-title-desc">ROL seran utilizados para dar restricción a los diferentes modulos de la plataforma.</p>
-                        </div>
-
-                        <form id="formRol">
-                            <div class="card-body p-4">
-                                <div class="row mb-2">
-                                    <div class="col-lg-6">
-                                        <div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="formrow-firstname-input">Nombre</label>
-                                                <input type="text" class="form-control" name="nombre" id="formrow-firstname-input" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                   
-                                </div>
-
-                                <div class="row">
-                                    <div class="mt-4">
-                                        <button type="submit" class="btn btn-primary w-md btn-submit">Crear ROL</button>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light btn-preloader" disabled style="display: none;">
-                                            <i class="bx bx-loader bx-spin font-size-16 align-middle me-2"></i> Espere
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div> <!-- container-fluid -->
     </div>
     <!-- End Page-content -->

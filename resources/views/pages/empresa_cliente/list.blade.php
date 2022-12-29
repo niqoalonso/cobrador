@@ -49,7 +49,7 @@
                                                 <td>{{$item->correo}}</td>
                                                 <td>
                                                     <a href="javascript:void(0)" onclick="ShowEmpresa(this.id)" id="{{$item->id_empresa}}" class="text-primary p-2"><i class="fa fa-info-circle"></i></a>
-                                                    <a href="javascript:void(0)" onclick="ShowEmpresa(this.id)" id="{{$item->id_empresa}}" class="text-success p-2"><i class="fas fa-handshake" aria-hidden="true"></i></a>
+                                                    <a href="javascript:void(0)" onclick="EditarArriendo()" class="text-success p-2"><i class="fas fa-handshake" aria-hidden="true"></i></a>
                                                     <a href="{{route('gestionEmpresas.edit', $item->sku)}}" class="text-warning p-2"><i class="fa fa-edit"></i></a>
                                                     <a href="javascript:void(0)" onclick="DarBaja(this.id)" id="{{$item->id_empresa}}" class="text-danger p-2"><i class="fa fa-trash"></i></a>
                                                 </td>

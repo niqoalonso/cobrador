@@ -71,7 +71,7 @@ jQuery('#formRol').on("submit", function(e){
 });
 
 function Editar(id)
-{
+{   
     $.ajaxSetup({ 
         headers: {
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -81,8 +81,14 @@ function Editar(id)
         url: "/gestion-rol-permision/"+id+"/edit",
         method: 'GET',
         success: function(result){
+        
             $('.inputID').val(result.id);
             $('.inputNombre').val(result.name);
+
+            $("input[name='permisos[]']").each(function(indice, elemento) {
+                indice++;
+                $('#formrow-customCheckEdit'+indice).attr('checked', false);
+            });
 
             $('.divFormEditar').show();
             $('.divFormNuevo').hide();
@@ -90,7 +96,7 @@ function Editar(id)
             $.each(result.permissions, function(v,i){
                 $('#formrow-customCheckEdit'+i.id).attr('checked', true);
             }); 
-    
+
             alertify.success('Edición activada.');
         },
         error: function(result){
@@ -214,3 +220,9 @@ function Eliminar(id)
     });
     
 }
+
+function verDescripcion(info)
+{   
+    $('#infoDescripcion').modal('show');
+    $('.divContenido').html('<p><b>'+info+'</b></p>')
+} 

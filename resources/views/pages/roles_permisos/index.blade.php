@@ -49,6 +49,7 @@
                                                 <div class="form-check">
                                                     <input type="checkbox" value="{{$item->id}}" name="permisos[]" class="form-check-input" id="formrow-customCheck{{$item->id}}">
                                                     <label class="form-check-label" for="formrow-customCheck{{$item->id}}">{{$item->name}}</label>
+                                                    <a href="javascript:void(0)" onclick="verDescripcion(this.id)" id="{{$item->descripcion}}"> - <i class="fa fa-info-circle"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,9 +64,10 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         </form>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
@@ -99,6 +101,7 @@
                                                 <div class="form-check">
                                                     <input type="checkbox" value="{{$item->id}}" name="permisos[]" class="form-check-input" id="formrow-customCheckEdit{{$item->id}}">
                                                     <label class="form-check-label" for="formrow-customCheckEdit{{$item->id}}">{{$item->name}}</label>
+                                                    <a href="javascript:void(0)" onclick="verDescripcion(this.id)" id="{{$item->descripcion}}"> - <i class="fa fa-info-circle"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,6 +162,21 @@
         </div> <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
+
+        <!-- Modal Info Empresa - Cliente -->
+        <div class="modal fade" id="infoDescripcion" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 text-center divContenido">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <footer class="footer">
         <div class="container-fluid">

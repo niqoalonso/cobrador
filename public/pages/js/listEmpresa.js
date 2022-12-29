@@ -55,3 +55,32 @@ function DarBaja(id)
     });
     
 }
+
+function EditarArriendo(id)
+{
+    $.ajaxSetup({ 
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/redireccionarListadoArriendo",
+        method: 'GET',
+        success: function(result){
+            if(result)
+            {   
+                window.location.replace('/gestionArriendo');
+            }else{
+                alertify.error('No tienes permisos para acceder a este modulo. Comuniquese con el Administrador.');
+            }
+        },
+        error: function(result){
+            console.clear();
+            $.each(result.responseJSON.errors, function(v,i){
+                alertify.success(i[0]);
+            });
+            $('.btn-submit').show();
+            $('.btn-preloader').hide();
+        }
+    });
+}

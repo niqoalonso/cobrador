@@ -9,9 +9,14 @@ use App\Models\Local;
 class AreaLocalController extends Controller
 {   
 
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        $this->middleware(['permission:Gestion Locales & Areas']);
+    }
+
     //FUNCTIONES AREA
 
-    
     public function index()
     {   
         $areas = Area::where('estado_id',1)->get();
@@ -58,13 +63,11 @@ class AreaLocalController extends Controller
             }else{
                 return response()->json(['codigoEstado' => '1', 'mensaje' => 'Area esta en uso. Esta asignado a uno varios localea.']);
             }
-
     }
 
     public function eliminarArea($id)
     {
         Area::destroy($id);
-
         return response()->json(['mensaje' => 'Area eliminada exitosamente.']);
     }
 
