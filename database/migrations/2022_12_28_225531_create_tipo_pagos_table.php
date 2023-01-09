@@ -6,31 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('tipo_pagos', function (Blueprint $table) {
-            $table->id('id');
+            $table->id('id_pago');
             $table->string('nombre');
             $table->timestamps();
         });
+
+        //NO ALTERAR EL ORDEN DE LA MIGRACIÓN YA QUE EL MODULO ABONO DEPENDE DE LA ID INGRESARAS
 
         DB::table('tipo_pagos')->insert(['nombre' => 'Efectivo']);
         DB::table('tipo_pagos')->insert(['nombre' => 'Cheque']);
         DB::table('tipo_pagos')->insert(['nombre' => 'Transferencia']);
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('TipoPago');
+        Schema::dropIfExists('tipo_pagos');
     }
 };

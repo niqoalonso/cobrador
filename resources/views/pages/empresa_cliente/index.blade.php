@@ -213,7 +213,7 @@
                                                         @foreach ($locales as $item)
                                                             <option value="{{$item->id_local}}">{{$item->identificador}}</option>
                                                         @endforeach
-                                                      </select>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

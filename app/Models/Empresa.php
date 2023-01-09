@@ -36,4 +36,9 @@ class Empresa extends Model
     {
         return $this->belongsTo(Estado::class, 'estado_id');
     }
+
+    public function Arriendo()
+    {
+        return $this->hasMany(Arriendo::class, 'empresa_id', 'id_empresa');
+    }
 }

@@ -7,7 +7,7 @@
      <link href="{{asset('assets/libs/alertifyjs/build/css/alertify.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
-@section('content')
+@section('content') 
     <div class="page-content">
         @if(count($roles) == 0)
             <div class="container-fluid">
@@ -43,7 +43,7 @@
                             <h4 class="mb-sm-0 font-size-18">Gestión Usuarios</h4>
                         </div>
                     </div>
-                </div>
+                </div> 
                 <!-- end page title -->
 
                 <div class="row divFormNuevo">

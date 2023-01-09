@@ -85,9 +85,46 @@
                         </a>
                     </li>
                 @endcan
-                
 
-                <li class="menu-title" data-key="t-menu">Otros</li>
+                <li class="menu-title" data-key="t-menu">Pagos e Ingresos</li>
+                
+                @can('Gestion Abono')
+                    <li>
+                        <a href="{{route('gestionAbono.index')}}">
+                            <i data-feather="trending-up"></i>
+                            <span data-key="t-apps">Nuevo Abono</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Historial Abono')
+                    <li>
+                        <a href="{{route('historial.abono')}}">
+                            <i data-feather="calendar"></i>
+                            <span data-key="t-dashboard">Historial Abonos</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Gestion Posturas')
+                    <li>
+                        <a href="{{route('gestionPostura.index')}}">
+                            <i data-feather="trending-up"></i>
+                            <span data-key="t-apps">Nueva Postura</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Historial Posturas')
+                    <li>
+                        <a href="#">
+                            <i data-feather="calendar"></i>
+                            <span data-key="t-dashboard">Historial Posturas</span>
+                        </a>
+                    </li>
+                @endcan
+
+                {{-- <li class="menu-title" data-key="t-menu">Otros</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -147,7 +184,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
             </ul>
 

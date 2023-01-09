@@ -83,6 +83,12 @@ class AreaLocalController extends Controller
         return response()->json($locales);
     }
 
+    public function getLocalDisponible()
+    {
+        $locales = Local::where('estado_id', 3)->get();
+        return response()->json($locales);
+    }
+
     public function storeLocal(Request $request)
     {
         Local::create(['identificador' => $request->identificador, 'direccion' => $request->direccion, 'area_id' => $request->area, 'estado_id' => 3]);

@@ -35,21 +35,56 @@ class ArriendoController extends Controller
         return $number;
     }
 
+    public function GenerarCodigoSkuArriendo()
+    {
+        do {            
+            $number = rand(1, 5000);
+            $codigo = Arriendo::select('sku')->where('sku', $number)->first();
+        } while (!empty($codigo->sku));
+
+        return $number;
+    }
+
     public function create()
     {
         //
     }
 
-    public function store(StoreArriendoRequest $request)
-    {
-        //
+    public function store(Request $request)
+    {   
+        $fecha = new \DateTime();
+
+        $pdf = null;
+        if($request->contrato)
+        {   
+            $pdf = storage::disk('public')->putFile('/ArriendoContrato', new File($request->contrato));
+        }
+
+        $arriendo = Arriendo::create([
+            'sku'               => $this->GenerarCodigoSkuArriendo(),
+            'url_contrato'      => $pdf,
+            'valor_arriendo'    => $request->valor_arriendo,
+            'fecha_inicio'      => $request->fecha_inicio,
+            'fecha_termino'     => $request->fecha_termino,
+            'estado_id'         => ($fecha->format('Y-m-d') < $request->fecha_inicio) ? 6: 5, 
+            'empresa_id'        => $request->id,
+        ]);
+
+        $arriendo->Local()->sync($request->locales);
+
+        foreach ($request->locales as $key => $value) {
+            Local::updateOrCreate(['id_local' => $value],['estado_id' => 4]);
+        }
+        
+        return response()->json(['id_empresa' => $request->id ,'mensaje' => 'Contrato añadido exitosamente.']);
     }
 
     public function show($id)
     {   
+        $empresa = Empresa::find($id);
         $arriendos = Arriendo::where('empresa_id',$id)->get();
         
-        return response()->json($arriendos);
+        return response()->json(['arriendos' => $arriendos, 'empresa' => $empresa]);
     }
 
     public function gestionArriendoOnly($id)

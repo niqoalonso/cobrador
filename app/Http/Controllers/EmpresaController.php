@@ -22,6 +22,7 @@ class EmpresaController extends Controller
 
         return view('pages.empresa_cliente.index', compact('representantes', 'locales'));
     }
+    
     public function getLocalDisponible()
     {
         $locales = Local::where('estado_id', 3)->get();
@@ -83,9 +84,7 @@ class EmpresaController extends Controller
 
     public function store(Request $request)
     {   
-
-        $fecha = getdate();
-        $actual = $fecha['year'].'-'.$fecha['mon'].'-'.$fecha['mday'];
+        $fecha = new \DateTime();
 
         $img = null;
         if($request->img){
@@ -124,7 +123,7 @@ class EmpresaController extends Controller
                 'valor_arriendo'    => $request->valor_arriendo,
                 'fecha_inicio'      => $request->fecha_inicio,
                 'fecha_termino'     => $request->fecha_termino,
-                'estado_id'         => ($actual <= $request->fecha_inicio) ? 5: 6, 
+                'estado_id'         => ($fecha->format('Y-m-d') < $request->fecha_inicio) ? 6: 5, 
                 'empresa_id'        => $dato->id_empresa,
         ]);
 

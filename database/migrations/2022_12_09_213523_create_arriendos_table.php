@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('saldo_a_favor')->default(0);
             $table->string('deuda_pendiente')->default(0);
             $table->date('fecha_inicio');
-            $table->date('fecha_termino');
+            $table->date('fecha_termino')->nullable();
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id_empresa')->on('empresas');
             $table->unsignedBigInteger('estado_id');

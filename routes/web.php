@@ -8,6 +8,8 @@ use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\AreaLocalController;
 use App\Http\Controllers\ArriendoController;
+use App\Http\Controllers\AbonoController;
+use App\Http\Controllers\PosturaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,25 @@ Route::get('/editarLocal/{id}', [AreaLocalController::class, 'editarLocal']);
 Route::put('/updateLocal/{id}', [AreaLocalController::class, 'updateLocal']);
 Route::get('/verificarUsoLocal/{id}', [AreaLocalController::class, 'verificarUsoLocal']);
 Route::delete('/eliminarLocal/{id}', [AreaLocalController::class, 'eliminarLocal']);
+Route::get('getLocalDisponible', [AreaLocalController::class, 'getLocalDisponible']);
 
+
+//Gestión Abonos
+
+Route::resource('gestionAbono', AbonoController::class);
+Route::get('/getFacturacionPagoPendiente/{sku}', [AbonoController::class, 'getFacturacionPagoPendiente']);
+Route::get('/getAbonoFactura/{id}', [AbonoController::class, 'getAbonoFactura']);
+Route::get('historialAbonos', [AbonoController::class, 'historialAbono'])->name('historial.abono');
+Route::get('getFacturasHistorial/{sku}', [AbonoController::class, 'getHistorialAbono']);
+Route::get('getLocalesArriendo/{sku}', [AbonoController::class, 'getLocalArriendo']);
+Route::get('getArriendos/{sku}', [AbonoController::class, 'getArriendos']);
+Route::get('getFacturaDeArriendo/{sku}/{fecha}', [AbonoController::class, 'getFacturaDeArriendo']);
+Route::get('getDetalleAbono/{sku}', [AbonoController::class, 'getDetalleAbono']);
+Route::post('anularAbono', [AbonoController::class, 'anularAbono']);
+
+//Gestión Posturas
+
+Route::resource('gestionPostura', PosturaController::class);
 
 
 Auth::routes();
