@@ -26,14 +26,19 @@ class PermissionTableSeeder extends Seeder
 
         Permission::create(['name' => 'Gestion Abono',              'descripcion' => 'Gestiona los abonos a ingresar.']); //10
         Permission::create(['name' => 'Historial Abono',            'descripcion' => 'Revisa historial de abonos.']); //11
+        Permission::create(['name' => 'Solicitud Anulacion Abono',  'descripcion' => 'Revisa solicitudes de anulación en abonos.']); //12
 
-        Permission::create(['name' => 'Gestion Posturas',           'descripcion' => 'Gestiona las posturas a ingresar.']); //12
-        Permission::create(['name' => 'Historial Posturas',         'descripcion' => 'Revisa historial de posturas.']); //13
+        Permission::create(['name' => 'Gestion Posturas',           'descripcion' => 'Gestiona las posturas a ingresar.']); //13
+        Permission::create(['name' => 'Historial Posturas',         'descripcion' => 'Revisa historial de posturas.']); //14
+        Permission::create(['name' => 'Solicitud Anulacion Postura','descripcion' => 'Revisa solicitudes de anulación en postura.']); //15
 
         $rol = Role::create(['name' => 'Administrador']);
-        $rol->syncPermissions([1,2,3,4,5,6,7,8,9]);
+        $rol->syncPermissions([1,2,3,4,5,6,7,8,9,11,12,14,15]);
 
         $rol1 = Role::create(['name' => 'Recaudador']);
-        $rol1->syncPermissions([10,11,12,13]);
+        $rol1->syncPermissions([10,11,13,14]);
+
+        $rol1 = Role::create(['name' => 'Tesorero']);
+        $rol1->syncPermissions([10,11,12,13,14,15]);
     }
 }

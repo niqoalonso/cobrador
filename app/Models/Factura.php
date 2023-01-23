@@ -11,8 +11,12 @@ class Factura extends Model
 
     protected $primaryKey = "id_factura";
 
-    protected $fillable = ['monto_total', 'monto_pendiente', 'fecha_emision', 'n_factura', 'estado_id'];
+    protected $fillable = ['monto_total', 'monto_pendiente', 'fecha_emision', 'n_factura', 'estado_id', 'arriendo_id'];
 
     
+    public function Arriendo()
+    {
+        return $this->belongsTo(Arriendo::class, 'arriendo_id');
+    }
 
 }

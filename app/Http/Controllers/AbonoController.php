@@ -15,7 +15,6 @@ class AbonoController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-
     }
 
     public function index()
@@ -30,7 +29,7 @@ class AbonoController extends Controller
     {   
 
         $empresa = Empresa::where('sku', $sku)->first();
-        $empresa->load('Arriendo.FacturaPendientes');
+        $empresa->load('AllArriendo.FacturaPendientes');
 
         return response()->json($empresa);
     }
@@ -142,6 +141,22 @@ class AbonoController extends Controller
         Factura::updateOrCreate(['id_factura' => $factura->id_factura],['monto_pendiente' => $factura->monto_pendiente+$data->monto, 'estado_id' => 9]);
         
         return response()->json($factura->id_factura);
+    }
+
+    //Anulacion Abonos
+
+    public function anulacionAbonos()
+    {
+        $data = Abono::where('estado_id', 13)->where('solicitud_anulacion', 1)->with('Factura.Arriendo.Empresa', 'TipoPago')->get();
+        return view('pages.abono.anulacion', compact('data'));
+    }
+
+    public function aceptarAnulacionAbono(Request $request)
+    {   
+        Abono::updateOrCreate(['id_abono' => $request->id],['observacion_anulacion' => $request-> motivo, 'solicitud_anulacion' => 0]);
+        $data = Abono::where('estado_id', 13)->where('solicitud_anulacion', 1)->with('Factura.Arriendo.Empresa', 'TipoPago')->get();
+
+        return response()->json(['data' => $data, 'mensaje' => 'Anulacion aceptada exitosamente.']);
     }
 
 }

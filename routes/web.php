@@ -87,15 +87,33 @@ Route::get('/getAbonoFactura/{id}', [AbonoController::class, 'getAbonoFactura'])
 Route::get('historialAbonos', [AbonoController::class, 'historialAbono'])->name('historial.abono');
 Route::get('getFacturasHistorial/{sku}', [AbonoController::class, 'getHistorialAbono']);
 Route::get('getLocalesArriendo/{sku}', [AbonoController::class, 'getLocalArriendo']);
-Route::get('getArriendos/{sku}', [AbonoController::class, 'getArriendos']);
+Route::get('getArriendosAbonos/{sku}', [AbonoController::class, 'getArriendos']);
 Route::get('getFacturaDeArriendo/{sku}/{fecha}', [AbonoController::class, 'getFacturaDeArriendo']);
 Route::get('getDetalleAbono/{sku}', [AbonoController::class, 'getDetalleAbono']);
 Route::post('anularAbono', [AbonoController::class, 'anularAbono']);
+Route::get('anulacionAbonos', [AbonoController::class, 'anulacionAbonos'])->name('anulacion.abonos');
+Route::post('aceptarAnulacionAbono', [AbonoController::class, 'aceptarAnulacionAbono']);
+
 
 //Gestión Posturas
 
 Route::resource('gestionPostura', PosturaController::class);
+Route::get('getArriendosPosturas/{sku}', [PosturaController::class, 'getArriendos']);
+Route::get('getItemPostura/{id}', [PosturaController::class, 'getItemPostura']);
+Route::get('getPosturasArriendo/{sku}', [PosturaController::class, 'getPosturaArriendo']);
+Route::get('getDetallePostura/{sku}', [PosturaController::class, 'getDetallePostura']);
+Route::post('anularPostura', [PosturaController::class, 'anularPostura']);
+Route::get('historialPosturas', [PosturaController::class, 'historialPostura'])->name('historial.postura');
+Route::post('searchPostura', [PosturaController::class, 'searchPostura']);
+Route::get('anulacionPosturas', [PosturaController::class, 'anulacionPostura'])->name('anulacion.postura');
+Route::post('aceptarAnulacionPostura', [PosturaController::class, 'aceptarAnulacionPostura']);
 
+
+//DOM PDF
+
+Route::get('verpdfdescargar', [WebMasterController::class, 'domPDFDescargar']); // Descarga
+
+Route::get('verpdfnavegador', [WebMasterController::class, 'domPDFNavegador']); // Ver Navegador
 
 Auth::routes();
 

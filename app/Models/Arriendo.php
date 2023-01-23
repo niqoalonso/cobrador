@@ -20,7 +20,6 @@ class Arriendo extends Model
             'deuda_pendiente',
             'fecha_inicio',
             'fecha_termino',
-            'representante_id',
             'estado_id',
             'empresa_id'
     ];
@@ -30,9 +29,24 @@ class Arriendo extends Model
         return $this->belongsToMany(Local::class);
     } 
 
+    public function Empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    } 
+
     public function Factura()
     {
         return $this->hasMany(Factura::class, 'arriendo_id', 'id_arriendo');
+    }
+
+    public function Postura()
+    {
+        return $this->hasMany(Postura::class, 'arriendo_id', 'id_arriendo');
+    }
+
+    public function PosturaNORendidas()
+    {
+        return $this->hasMany(Postura::class, 'arriendo_id', 'id_arriendo')->where('estado_id', 12);
     }
 
     public function FacturaPendientes()

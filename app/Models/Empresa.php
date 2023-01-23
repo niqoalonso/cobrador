@@ -37,8 +37,13 @@ class Empresa extends Model
         return $this->belongsTo(Estado::class, 'estado_id');
     }
 
-    public function Arriendo()
+    public function AllArriendo() //Condidera los arriendo que ya han estado terminados
     {
         return $this->hasMany(Arriendo::class, 'empresa_id', 'id_empresa');
+    }
+
+    public function Arriendo() //Concidera solo arriendo vigentes y en curso.
+    {
+        return $this->hasMany(Arriendo::class, 'empresa_id', 'id_empresa')->where('estado_id', 5);
     }
 }

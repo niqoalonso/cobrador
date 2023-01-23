@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreItemPosturaPosturaRequest;
-use App\Http\Requests\UpdateItemPosturaPosturaRequest;
-use App\Models\ItemPosturaPostura;
+use App\Http\Requests\StoreDetallePosturaRequest;
+use App\Http\Requests\UpdateDetallePosturaRequest;
+use App\Models\DetallePostura;
 
-class ItemPosturaPosturaController extends Controller
+class DetallePosturaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class ItemPosturaPosturaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreItemPosturaPosturaRequest  $request
+     * @param  \App\Http\Requests\StoreDetallePosturaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreItemPosturaPosturaRequest $request)
+    public function store(StoreDetallePosturaRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class ItemPosturaPosturaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ItemPosturaPostura  $itemPosturaPostura
+     * @param  \App\Models\DetallePostura  $detallePostura
      * @return \Illuminate\Http\Response
      */
-    public function show(ItemPosturaPostura $itemPosturaPostura)
+    public function show(DetallePostura $detallePostura)
     {
         //
     }
@@ -53,10 +53,10 @@ class ItemPosturaPosturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ItemPosturaPostura  $itemPosturaPostura
+     * @param  \App\Models\DetallePostura  $detallePostura
      * @return \Illuminate\Http\Response
      */
-    public function edit(ItemPosturaPostura $itemPosturaPostura)
+    public function edit(DetallePostura $detallePostura)
     {
         //
     }
@@ -64,11 +64,11 @@ class ItemPosturaPosturaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateItemPosturaPosturaRequest  $request
-     * @param  \App\Models\ItemPosturaPostura  $itemPosturaPostura
+     * @param  \App\Http\Requests\UpdateDetallePosturaRequest  $request
+     * @param  \App\Models\DetallePostura  $detallePostura
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateItemPosturaPosturaRequest $request, ItemPosturaPostura $itemPosturaPostura)
+    public function update(UpdateDetallePosturaRequest $request, DetallePostura $detallePostura)
     {
         //
     }
@@ -76,10 +76,10 @@ class ItemPosturaPosturaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ItemPosturaPostura  $itemPosturaPostura
+     * @param  \App\Models\DetallePostura  $detallePostura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ItemPosturaPostura $itemPosturaPostura)
+    public function destroy(DetallePostura $detallePostura)
     {
         //
     }

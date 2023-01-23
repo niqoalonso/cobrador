@@ -59,7 +59,20 @@ class DatabaseSeeder extends Seeder
             'password'  =>  Hash::make("admin"),
             'estado_id' =>  1,
         ]);
+
         $admin2->assignRole(2);
+
+        $admin3 = User::create([
+            'rut'       =>  '33333333-3',
+            'name'      =>  "Tesorero VModelo",
+            'nombres'   =>  'Tesorero',
+            'apellidos' =>  'VModelo',
+            'email'     =>  'tesorero@correo.com',
+            'password'  =>  Hash::make("admin"),
+            'estado_id' =>  1,
+        ]);
+
+        $admin3->assignRole(3);
 
 
 

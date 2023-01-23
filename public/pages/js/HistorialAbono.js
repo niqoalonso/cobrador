@@ -4,6 +4,8 @@ $(document).ready(function() {
 
 function selectCliente(event)
 {   
+    
+
     if(event.length == 0)
     {   
         $('.contentFactura').empty();
@@ -15,7 +17,7 @@ function selectCliente(event)
         }
     });
     $.ajax({
-        url: "/getArriendos/"+event,
+        url: "/getArriendosAbonos/"+event,
         method: 'GET',
         success: function(result){
             if(result.arriendo.length == 0)
@@ -23,6 +25,10 @@ function selectCliente(event)
                 alertify.error("Sin arriendos ingresados.");
                 $('.listArriendo').empty();
                 $('.divArriendo').hide();
+                $('.listFactura').empty();
+                $('.divFactura').hide();
+                $('.listAbonos').empty();
+                $('.divAbonos').hide();
                 return;
             }
 
@@ -339,7 +345,7 @@ jQuery('#formAnulacion').on("submit", function(e){
             $('#modalAnularAbono').modal('hide');
             $('#infoDetalleAbono').modal('hide');
             verAbonos(result);
-            alertify.danger("Abono anulado exitosamente.");
+            alertify.error("Abono anulado exitosamente.");
         },
         error: function(result){
             console.clear();

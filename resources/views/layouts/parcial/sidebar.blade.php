@@ -105,6 +105,15 @@
                         </a>
                     </li>
                 @endcan
+                
+                @can('Solicitud Anulacion Abono')
+                    <li>
+                        <a href="{{route('anulacion.abonos')}}">
+                            <i data-feather="minus-circle"></i>
+                            <span data-key="t-dashboard"> Anulación Abonos</span>
+                        </a>
+                    </li>
+                @endcan
 
                 @can('Gestion Posturas')
                     <li>
@@ -117,12 +126,22 @@
 
                 @can('Historial Posturas')
                     <li>
-                        <a href="#">
+                        <a href="{{route('historial.postura')}}">
                             <i data-feather="calendar"></i>
                             <span data-key="t-dashboard">Historial Posturas</span>
                         </a>
                     </li>
                 @endcan
+                
+                @can('Solicitud Anulacion Postura')
+                    <li>
+                        <a href="{{route('anulacion.postura')}}">
+                            <i data-feather="minus-circle"></i>
+                            <span data-key="t-dashboard"> Anulación Posturas</span>
+                        </a>
+                    </li>
+                @endcan
+              
 
                 {{-- <li class="menu-title" data-key="t-menu">Otros</li>
 

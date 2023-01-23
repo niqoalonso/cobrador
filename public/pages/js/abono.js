@@ -21,7 +21,7 @@ function selectCliente(event)
             console.log(result);
                 $('.skuEmpresa').val(result.sku);
                 $('.contentFactura').empty();
-            $.each(result.arriendo, function(v,i){
+            $.each(result.all_arriendo, function(v,i){
                     
                 if(i.factura_pendientes.length != 0)
                 {   
@@ -408,7 +408,7 @@ jQuery('#formAnulacion').on("submit", function(e){
             $('#infoDetalleAbono').modal('hide');
             $('#modalInforAbono').modal('hide');
             verDetalle(result);
-            alertify.danger("Abono anulado exitosamente.");
+            alertify.error("Abono anulado exitosamente.");
         },
         error: function(result){
             console.clear();
