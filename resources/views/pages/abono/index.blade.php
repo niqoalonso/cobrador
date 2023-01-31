@@ -144,6 +144,7 @@
         </div>
     </div>
 
+    {{-- Modal Abonos Lista --}}
     <div id="modalInforAbono" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -165,37 +166,20 @@
                                                 <div class="simplebar-content" style="padding: 0px;">
                             
                                 <ul class="list-unstyled chat-list listAbono">
-                                    
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <div class="d-flex align-items-start">
-                                                <div class="flex-grow-1 overflow-hidden">
-                                                    <h5 class="text-truncate font-size-14 mb-1">N° 234</h5>
-                                                    <p class="text-truncate mb-0"><b>Monto:</b> $950.000</p>
-                                                </div>
-                                                <div class="flex-shrink-0">
-                                                    <div class="font-size-11">2022-05-14</div>
-                                                </div>
-                                                <div class="unread-message">
-                                                    <span class="badge bg-success" style="padding: 5px;">Pagado</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                                                                
+                                                                                   
                                 </ul>
                            
                         </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 686px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 70px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div>
                     </div><!-- end card-body -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal"> <i class="fa fa-times"></i> Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Info Empresa - Cliente -->
+    <!-- Modal Detale Abono -->
     <div class="modal fade" id="infoDetalleAbono" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -267,14 +251,54 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-xs btnAnularAbono" style="display: none;" onclick="anularAbono(this.id)" >Anular</button>
-                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-info btn-xs btnMotivoAnulacion" style="display: none;" onclick="verMotivoAnulacion(this.id)"><i class="fa fa-info-circle"></i> Motivo Anulación</button>
+                    <button type="button" class="btn btn-danger btn-xs btnAnularAbono" style="display: none;" onclick="anularAbono(this.id)"> <i class="fa fa-ban"></i>Anular</button>
+                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Info Empresa - Cliente -->
+    <!-- Modal Motivo Anulación -->
+    <div class="modal fade" id="modalMotivoAnulacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Motivo Anulación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDetalleAbono">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Usuario Responsable</label>
+                                    <input type="text" class="form-control form-control-sm inputUsuarioAnulacion" readonly id="formrow-firstname-input">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Fecha Anulación</label>
+                                    <input type="text" class="form-control form-control-sm inputFechaAnulacion" readonly id="formrow-firstname-input">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Motivo</label>
+                                    <textarea name="" class="form-control inputMotivoAnulacion" readonly cols="20" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Anular Abono -->
     <div class="modal fade" id="modalAnularAbono" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -295,14 +319,15 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-xs btnAnularAbono">Confirmar Anulación</button>
-                        <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger btn-xs btnAnularAbono"><i class="fa fa-check-circle"></i> Confirmar Anulación</button>
+                        <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"> <i class="fa fa-times"></i> Cancelar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    {{-- Modal Ver Locales Arrendados --}}
     <div id="modalLocales" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">

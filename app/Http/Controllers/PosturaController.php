@@ -11,9 +11,11 @@ use App\Models\ItemPostura;
 use App\Models\Arriendo;
 use App\Models\ItemPosturaPostura;
 use App\Models\DetallePostura;
+use Auth;
 
 class PosturaController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -66,7 +68,8 @@ class PosturaController extends Controller
                         'fecha_emision' => $fecha->format('Y-m-d'),
                         'total' => array_sum(array_column($data, 'total')),
                         'estado_id' => 12,
-                        'tipo_pago_id' => $request->tipo_pago]);
+                        'tipo_pago_id' => $request->tipo_pago,
+                        'user_id' => Auth::user()->id]);
 
         foreach ($data as $key => $value) {
             DetallePostura::create([
@@ -90,6 +93,23 @@ class PosturaController extends Controller
     {   
         $postura = Postura::where('sku', $sku)->with('TipoPago', 'DetallePostura.ItemPostura')->first();
 
+        $permiso = 0;
+
+        if(Auth()->user()->getRoleNames()[0] == "Administrador")
+        {
+            $permiso = 1;    // Es Administrador, asi que puede anular abonos.
+        }else{
+            if($postura->user_id == Auth()->user()->id){ //Verificados si es propietario de haber creado el abono, si es el mismo que lo creo, puede anular, de lo contrario no puede.
+                $permiso = 1;
+            }
+        }
+
+        return response()->json(['permisoAnular' => $permiso, 'postura' =>$postura]);
+    }
+
+    public function verMotivoAnulacionPostura($id)
+    {
+        $postura = Postura::where('id_postura', $id)->with('UserAnulacion')->first();
         return response()->json($postura);
     }
 
@@ -101,7 +121,8 @@ class PosturaController extends Controller
                                         'estado_id' => 13, 
                                         'motivo' => $request->motivo, 
                                         'solicitud_anulacion' => 1, 
-                                        'fecha_anulacion' => $fecha->format('Y-m-d')]);
+                                        'fecha_anulacion' => $fecha->format('Y-m-d'),
+                                        'user_id_anulacion' => Auth()->user()->id]);
 
         return response()->json($request);
     }

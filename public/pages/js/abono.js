@@ -218,6 +218,7 @@ function verDetalle(data)
         url: "/getAbonoFactura/"+data,
         method: 'GET',
         success: function(result){
+            
             $('.listAbono').empty();
             if(result.length == 0)
             {   
@@ -265,7 +266,7 @@ function verDetalle(data)
     });
 
     $('#modalInforAbono').modal('show');
-}
+} 
 
 function verLocales(data)
 {   
@@ -298,6 +299,7 @@ function verLocales(data)
 
 function verDetalleAbono(sku)
 {   
+    
 
     $.ajaxSetup({ 
         headers: {
@@ -308,7 +310,7 @@ function verDetalleAbono(sku)
         url: "/getDetalleAbono/"+sku,
         method: 'GET',
         success: function(result){
-            
+
             $('.divTitular').hide();
             $('.divBanco').hide();
             $('.divCheque').hide();
@@ -316,51 +318,68 @@ function verDetalleAbono(sku)
             $('.divTransaccion').hide();
             $('.divFtransaccion').hide();
             $('.btnAnularAbono').hide();
+            $('.btnMotivoAnulacion').hide();
 
-            $('.inputPago').val(result.tipo_pago.nombre);
-            $('.inputMonto').val(result.monto);
-            $('.inputFechaAbono').val(result.fecha_emision);
+            $('.inputPago').val(result.detalle.tipo_pago.nombre);
+            $('.inputMonto').val(result.detalle.monto);
+            $('.inputFechaAbono').val(result.detalle.fecha_emision);
             
-            if(result.titular != null)
+            if(result.detalle.titular != null)
             {   
                 $('.divTitular').show();
-                $('.inputTitular').val(result.titular);
+                $('.inputTitular').show();
+                $('.inputTitular').val(result.detalle.titular);
             }
 
-            if(result.entidad_id != null)
+            if(result.detalle.entidad_id != null)
             {   
                 $('.divBanco').show();
-                $('.inputBanco').val(result.entidad_financiera.nombre);
+                $('.inputBanco').show();
+                $('.inputBanco').val(result.detalle.entidad_financiera.nombre);
             }
 
-            if(result.n_cheque != null)
+            if(result.detalle.n_cheque != null)
             {   
                 $('.divCheque').show();
-                $('.inputCheque').val(result.n_cheque);
+                $('.inputCheque').show();
+                $('.inputCheque').val(result.detalle.n_cheque);
             }
 
-            if(result.fecha_vencimiento != null)
+            if(result.detalle.fecha_vencimiento != null)
             {   
                 $('.divVencimiento').show();
-                $('.inputVencimiento').val(result.fecha_vencimiento);
+                $('.inputVencimiento').show();
+                $('.inputVencimiento').val(result.detalle.fecha_vencimiento);
             }
 
-            if(result.n_transferencia != null)
+            if(result.detalle.n_transferencia != null)
             {   
                 $('.divTransaccion').show();
-                $('.inputTransaccion').val(result.n_transferencia);
+                $('.inputTransaccion').show();
+                $('.inputTransaccion').val(result.detalle.n_transferencia);
             }
 
-            if(result.fecha_transaccion != null)
+            if(result.detalle.fecha_transaccion != null)
             {   
                 $('.divFtransaccion').show();
-                $('.inputFtransaccion').val(result.fecha_transaccion);
+                $('.inputFtransaccion').show();
+                $('.inputFtransaccion').val(result.detalle.fecha_transaccion);
             }
             
-            if(result.estado_id == 12)
+            $('.btnMotivoAnulacion').hide();
+            $('.btnAnularAbono').hide();
+
+            if(result.detalle.estado_id == 12)
             {   
-                $('.btnAnularAbono').show();
-                $('.btnAnularAbono').attr('id', result.id_abono);
+                if(result.permisoAnular == 1)
+                {
+                    $('.btnAnularAbono').show();
+                    $('.btnAnularAbono').attr('id', result.detalle.id_abono);
+                }
+            }else if(result.detalle.estado_id == 13)
+            {
+                $('.btnMotivoAnulacion').show();
+                $('.btnMotivoAnulacion').attr('id', result.detalle.id_abono);
             }
 
             $('#infoDetalleAbono').modal('show');
@@ -376,6 +395,34 @@ function verDetalleAbono(sku)
     });
 
     $('#modalInforAbono').modal('show');
+}
+
+function verMotivoAnulacion(id)
+{
+    $.ajaxSetup({ 
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/verMotivoAnulacionAbono/"+id,
+        method: 'GET',
+        success: function(result){
+            $('.inputUsuarioAnulacion').val(result.user_anulacion.name);
+            $('.inputFechaAnulacion').val(result.fecha_anulacion);
+            $('.inputMotivoAnulacion').val(result.motivo);
+
+            $('#modalMotivoAnulacion').modal('show');
+        },
+        error: function(result){
+            console.clear();
+            $.each(result.responseJSON.errors, function(v,i){
+                alertify.error(i[0]);
+            });
+            $('.btn-submit').show();
+            $('.btn-preloader').hide();
+        }
+    }); 
 }
 
 function anularAbono(id)

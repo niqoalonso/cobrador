@@ -52,10 +52,10 @@ class DatabaseSeeder extends Seeder
 
         $admin2 = User::create([
             'rut'       =>  '22222222-2',
-            'name'      =>  "Cobrador VModelo",
+            'name'      =>  "Cobrador Primero",
             'nombres'   =>  'Cobrador',
-            'apellidos' =>  'VModelo',
-            'email'     =>  'cobrador@correo.com',
+            'apellidos' =>  'Primero',
+            'email'     =>  'cobrador1@correo.com',
             'password'  =>  Hash::make("admin"),
             'estado_id' =>  1,
         ]);
@@ -73,6 +73,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin3->assignRole(3);
+
+        $admin4 = User::create([
+            'rut'       =>  '88888888-8',
+            'name'      =>  "Cobrador Segundo",
+            'nombres'   =>  'Cobrador',
+            'apellidos' =>  'Segundo',
+            'email'     =>  'cobrador2@correo.com',
+            'password'  =>  Hash::make("admin"),
+            'estado_id' =>  1,
+        ]);
+
+        $admin4->assignRole(2);
 
 
 
@@ -252,7 +264,7 @@ class DatabaseSeeder extends Seeder
             'sku' => 'EMP156',
             'rut' => '92345345-8',
             'razon_social' => 'Mariscos Don Clara Ltda.',
-            'nombre_fantasia' => 'Doña Clarita',
+            'nombre_fantasia' => 'Do単a Clarita',
             'correo' => 'clara@gmail.com',
             'telefono' => '345345',
             'celular' => '3453453',

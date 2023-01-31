@@ -27,10 +27,16 @@ return new class extends Migration
             $table->foreign('tipo_pago_id')->references('id_pago')->on('tipo_pagos');
             $table->unsignedBigInteger('estado_id');
             $table->foreign('estado_id')->references('id_estado')->on('estados');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id_anulacion')->nullable(); //Sabemos que usuario anulo este abono
+            $table->foreign('user_id_anulacion')->references('id')->on('users');
             $table->boolean('solicitud_anulacion')->default(0);
             $table->text('motivo')->nullable();
             $table->text('observacion_anulacion')->nullable();
             $table->date('fecha_anulacion')->nullable();
+            $table->unsignedBigInteger('rendicion_id')->nullable(); 
+            $table->foreign('rendicion_id')->references('id_rendicion')->on('rendicion_abonos');
             $table->timestamps(); 
         });
     }

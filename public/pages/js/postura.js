@@ -159,16 +159,32 @@ function verDetallePostura(sku)
         url: "/getDetallePostura/"+sku,
         method: 'GET',
         success: function(result){
-            $('.btnAnular').attr('id', result.id_postura);
-            $('#modalVerPostura').modal('show');
+            
+            $('.btnAnular').attr('id', result.postura.id_postura);
+            $('.btnAnular').hide();
+            $('.btnMotivoAnulacion').hide();
 
-            $('.inputSku').val(result.sku);
-            $('.inputFecha').val(result.fecha_emision);
-            $('.inputTipoPago').val(result.tipo_pago.nombre);
-            $('.inputTotal').val(result.total);
+            if(result.postura.estado_id == 12)
+            {   
+                if(result.permisoAnular == 1)
+                {
+                    $('.btnAnular').show();
+                    $('.btnAnular').attr('id', result.postura.id_postura);
+                }
+            }else if(result.postura.estado_id == 13)
+            {
+                $('.btnMotivoAnulacion').show();
+                $('.btnMotivoAnulacion').attr('id', result.postura.id_postura);
+            }
+
+            $('#modalVerPostura').modal('show');
+            $('.inputSku').val(result.postura.sku);
+            $('.inputFecha').val(result.postura.fecha_emision);
+            $('.inputTipoPago').val(result.postura.tipo_pago.nombre);
+            $('.inputTotal').val(result.postura.total);
 
             $('.listDetallePostura').empty();
-            $.each(result.detalle_postura, function(v,i){
+            $.each(result.postura.detalle_postura, function(v,i){
                 $('.listDetallePostura').append('<li>'+
                                             '<a href="javascript:void(0)">'+
                                                 '<div class="d-flex align-items-start">'+
@@ -185,8 +201,6 @@ function verDetallePostura(sku)
                                             '</a>'+
                                         '</li>');
             });
-
-            return;
 
         },
         error: function(result){
@@ -440,13 +454,12 @@ jQuery('#formAnulacion').on("submit", function(e){
         cache: false,
         processData: false,
         success: function(result){
-            console.log(result);
             $("#formAnulacion")[0].reset();
             $('#modalAnularPostura').modal('hide');
             $('.listDetallePostura').empty();
             $('.inputSku').val("");
             $('.inputFecha').val("");
-            $('.inputTipoPago').val("");
+            $('.inputTipoPago').val(""); 
             $('.inputTotal').val("");
             $('.btnAnular').attr('id', "");
             $('#modalVerPostura').modal('hide');

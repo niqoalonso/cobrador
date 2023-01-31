@@ -166,17 +166,17 @@ function verDetallePostura(sku)
         url: "/getDetallePostura/"+sku,
         method: 'GET',
         success: function(result){
-            $('.btnAnular').attr('id', result.id_postura);
+            
             $('#modalVerPostura').modal('show');
 
-            $('.inputSku').val(result.sku);
-            $('.inputFecha').val(result.fecha_emision);
-            $('.inputTipoPago').val(result.tipo_pago.nombre);
-            $('.inputTotal').val(result.total);
+            $('.inputSku').val(result.postura.sku);
+            $('.inputFecha').val(result.postura.fecha_emision);
+            $('.inputTipoPago').val(result.postura.tipo_pago.nombre);
+            $('.inputTotal').val(result.postura.total);
 
             $('.listDetallePostura').empty();
 
-            $.each(result.detalle_postura, function(v,i){
+            $.each(result.postura.detalle_postura, function(v,i){
                 $('.listDetallePostura').append('<li>'+
                                             '<a href="javascript:void(0)">'+
                                                 '<div class="d-flex align-items-start">'+
@@ -193,15 +193,6 @@ function verDetallePostura(sku)
                                             '</a>'+
                                         '</li>');
             });
-
-            if(result.estado_id == 12)
-            {
-                $('.btnAnular').show();
-            }else{
-                $('.btnAnular').hide();
-            }
-
-            return;
 
         },
         error: function(result){

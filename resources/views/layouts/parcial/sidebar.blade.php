@@ -141,8 +141,95 @@
                         </a>
                     </li>
                 @endcan
-              
+                
+                @canany(['Ingreso Rendicion Abono', 'Historial Rendicion Abono', 'Ingreso Rendicion Postura', 'Historial Rendicion Postura','Solicitud Rendicion Abono', 'Solicitud Rendicion Postura'])
+                <li class="menu-title" data-key="t-menu">Rendiciones</li>
+                @endcanany
+                
+                @canany(['Ingreso Rendicion Abono', 'Historial Rendicion Abono','Solicitud Rendicion Abono'])
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Abonos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @can('Ingreso Rendicion Abono')
+                        <li>
+                            <a href="{{route('gestionRendicionAbono.index')}}">
+                                <span data-key="t-calendar">Ingresar</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('Historial Rendicion Abono')
+                        <li>
+                            <a href="{{route('indexHistorial.abono')}}">
+                                <span data-key="t-chat">Historial</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('Solicitud Rendicion Abono')
+                        <li>
+                            <a href="{{route('indexSolicitud.abono')}}">
+                                <span data-key="t-chat">Solicitud</span>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcanany 
 
+                @canany(['Ingreso Rendicion Postura', 'Historial Rendicion Postura', 'Solicitud Rendicion Postura'])
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Posturas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @can('Ingreso Rendicion Postura')
+                        <li>
+                            <a href="{{route('gestionRendicionPostura.index')}}">
+                                <span data-key="t-calendar">Ingresar</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('Historial Rendicion Postura')
+                        <li>
+                            <a href="{{route('indexHistorial.postura')}}">
+                                <span data-key="t-chat">Historial</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('Solicitud Rendicion Postura')
+                        <li>
+                            <a href="{{route('indexSolicitud.postura')}}">
+                                <span data-key="t-chat">Solicitud</span>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li> 
+                @endcanany
+{{-- 
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Estacionamiento</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li>
+                            <a href="apps-calendar.html">
+                                <span data-key="t-calendar">Ingresar</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="apps-chat.html">
+                                <span data-key="t-chat">Histoiral</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>  --}}
+                
                 {{-- <li class="menu-title" data-key="t-menu">Otros</li>
 
                 <li>

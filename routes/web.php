@@ -10,6 +10,8 @@ use App\Http\Controllers\AreaLocalController;
 use App\Http\Controllers\ArriendoController;
 use App\Http\Controllers\AbonoController;
 use App\Http\Controllers\PosturaController;
+use App\Http\Controllers\RendicionAbonoController;
+use App\Http\Controllers\RendicionPosturaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +95,7 @@ Route::get('getDetalleAbono/{sku}', [AbonoController::class, 'getDetalleAbono'])
 Route::post('anularAbono', [AbonoController::class, 'anularAbono']);
 Route::get('anulacionAbonos', [AbonoController::class, 'anulacionAbonos'])->name('anulacion.abonos');
 Route::post('aceptarAnulacionAbono', [AbonoController::class, 'aceptarAnulacionAbono']);
+Route::get('verMotivoAnulacionAbono/{id}', [AbonoController::class, 'verMotivoAnulacionAbono']);
 
 
 //Gestión Posturas
@@ -107,6 +110,25 @@ Route::get('historialPosturas', [PosturaController::class, 'historialPostura'])-
 Route::post('searchPostura', [PosturaController::class, 'searchPostura']);
 Route::get('anulacionPosturas', [PosturaController::class, 'anulacionPostura'])->name('anulacion.postura');
 Route::post('aceptarAnulacionPostura', [PosturaController::class, 'aceptarAnulacionPostura']);
+Route::get('verMotivoAnulacionPostura/{id}', [PosturaController::class, 'verMotivoAnulacionPostura']);
+
+//GestionRendicion
+
+Route::get('gestionarRendicionA', [RendicionAbonoController::class, 'indexAbono'])->name('gestionRendicionAbono.index');
+Route::get('storeRendicionAbono', [RendicionAbonoController::class, 'storeRendicionAbono']);
+Route::get('historialRendicionAbono', [RendicionAbonoController::class, 'indexHistorial'])->name('indexHistorial.abono');
+Route::get('getHistorialRendicionAbono/{fecha}', [RendicionAbonoController::class, 'getHistorialAbono']);
+Route::get('getAbonosRendicion/{id}', [RendicionAbonoController::class, 'getAbonoRendicion']);
+Route::get('solicitudRendicionAbonos', [RendicionAbonoController::class, 'indexSolicitudRendicion'])->name('indexSolicitud.abono');
+Route::get('aprobarRendicionAbonos/{id}', [RendicionAbonoController::class, 'aprobarRendicionAbonos']);
+
+Route::get('gestionarRendicionP', [RendicionPosturaController::class, 'indexPostura'])->name('gestionRendicionPostura.index');
+Route::get('storeRendicionPostura', [RendicionPosturaController::class, 'storeRendicionPostura']);
+Route::get('historialRendicionPostura', [RendicionPosturaController::class, 'indexHistorial'])->name('indexHistorial.postura');
+Route::get('getHistorialRendicionPostura/{fecha}', [RendicionPosturaController::class, 'getHistorialPostura']);
+Route::get('getPosturasRendicion/{id}', [RendicionPosturaController::class, 'getPosturaRendicion']);
+Route::get('solicitudRendicionPosturas', [RendicionPosturaController::class, 'indexSolicitudRendicion'])->name('indexSolicitud.postura');
+Route::get('aprobarRendicionPosturas/{id}', [RendicionPosturaController::class, 'aprobarRendicionPosturas']);
 
 
 //DOM PDF

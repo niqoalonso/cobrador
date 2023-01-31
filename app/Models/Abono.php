@@ -27,13 +27,26 @@ class Abono extends Model
             'solicitud_anulacion',
             'motivo',
             'observacion_anulacion',
-            'fecha_anulacion'
+            'fecha_anulacion',
+            'user_id',
+            'user_id_anulacion',
+            'rendicion_id'
         ];
 
     
     public function TipoPago()
     {
         return $this->belongsTo(TipoPago::class, 'tipo_pago_id', 'id_pago');
+    }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function UserAnulacion()
+    {
+        return $this->belongsTo(User::class, 'user_id_anulacion');
     }
 
     public function EntidadFinanciera()
@@ -44,6 +57,16 @@ class Abono extends Model
     public function Factura()
     {
         return $this->belongsTo(Factura::class, 'factura_id', 'id_factura');
+    }
+
+    public function Rendicion()
+    {
+        return $this->belongsTo(RendicionAbono::class, 'rendicion_id');
+    }
+
+    public function Estado()
+    {
+        return $this->belongsTo(Estado::class, 'estado_id');
     }
 
 }

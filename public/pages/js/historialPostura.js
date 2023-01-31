@@ -166,17 +166,35 @@ function verDetallePostura(sku)
         url: "/getDetallePostura/"+sku,
         method: 'GET',
         success: function(result){
-            $('.btnAnular').attr('id', result.id_postura);
+
+            $('.btnAnular').attr('id', result.postura.id_postura);
+            $('.btnMotivoAnulacion').hide();
+            $('.btnAnular').hide();
+
+            if(result.postura.estado_id == 12)
+            {   
+                if(result.permisoAnular == 1)
+                {
+                    $('.btnAnular').show();
+                    
+                    $('.btnAnular').attr('id', result.postura.id_postura);
+                }
+            }else if(result.postura.estado_id == 13)
+            {
+                $('.btnMotivoAnulacion').show();
+                
+                $('.btnMotivoAnulacion').attr('id', result.postura.id_postura);
+            }
             $('#modalVerPostura').modal('show');
 
-            $('.inputSku').val(result.sku);
-            $('.inputFecha').val(result.fecha_emision);
-            $('.inputTipoPago').val(result.tipo_pago.nombre);
-            $('.inputTotal').val(result.total);
+            $('.inputSku').val(result.postura.sku);
+            $('.inputFecha').val(result.postura.fecha_emision);
+            $('.inputTipoPago').val(result.postura.tipo_pago.nombre);
+            $('.inputTotal').val(result.postura.total);
 
             $('.listDetallePostura').empty();
 
-            $.each(result.detalle_postura, function(v,i){
+            $.each(result.postura.detalle_postura, function(v,i){
                 $('.listDetallePostura').append('<li>'+
                                             '<a href="javascript:void(0)">'+
                                                 '<div class="d-flex align-items-start">'+
@@ -194,14 +212,6 @@ function verDetallePostura(sku)
                                         '</li>');
             });
 
-            if(result.estado_id == 12)
-            {
-                $('.btnAnular').show();
-            }else{
-                $('.btnAnular').hide();
-            }
-
-            return;
 
         },
         error: function(result){
@@ -216,6 +226,34 @@ function verDetallePostura(sku)
             $('.btn-preloader').hide();
         }
     });
+}
+
+function verMotivoAnulacion(id)
+{
+    $.ajaxSetup({ 
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: "/verMotivoAnulacionPostura/"+id,
+        method: 'GET',
+        success: function(result){
+            $('.inputUsuarioAnulacion').val(result.user_anulacion.name);
+            $('.inputFechaAnulacion').val(result.fecha_anulacion);
+            $('.inputMotivoAnulacion').val(result.motivo);
+
+            $('#modalMotivoAnulacion').modal('show');
+        },
+        error: function(result){
+            console.clear();
+            $.each(result.responseJSON.errors, function(v,i){
+                alertify.error(i[0]);
+            });
+            $('.btn-submit').show();
+            $('.btn-preloader').hide();
+        }
+    }); 
 }
 
 function verLocales(data)

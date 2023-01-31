@@ -85,7 +85,6 @@
     <!-- End Page-content -->
 
     <!-- Modal Buscar Fecha Postura -->
-
     <div class="modal fade" id="modalBuscarPostura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
@@ -126,7 +125,6 @@
     </div>
 
     <!-- Modal Ver Detalle Postura -->
-
     <div class="modal fade" id="modalVerPostura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -136,7 +134,7 @@
                 </div>
                 <div class="modal-body">
                         <div class="row">
-                                <div class="col-3">
+                                <div class="col-3"> 
                                     <div class="mb-3">
                                         <label class="form-label" for="formrow-firstname-input">SKU</label>
                                         <input type="text" class="form-control form-control-sm inputSku" readonly>
@@ -180,7 +178,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-xs btnAnular" style="display: none;" onclick="anularPostura(this.id)" ><i class="fa fa-ban"></i> Anular Postura</button>
+                    <button type="button" class="btn btn-info btn-xs btnMotivoAnulacion" style="display: none;" onclick="verMotivoAnulacion(this.id)"><i class="fa fa-info-circle"></i> Motivo Anulación</button>
+                    <button type="button" class="btn btn-danger btn-xs btnAnular" style="display: none;" onclick="anularPostura(this.id)"><i class="fa fa-ban"></i> Anular</button>
                     <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
             </div>
@@ -188,7 +187,6 @@
     </div>
 
     <!-- Modal Confirmar Anular Postura -->
-
     <div class="modal fade" id="modalAnularPostura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -217,8 +215,46 @@
         </div>
     </div>
 
-    {{-- Modal Ver Locales --}}
+    <!-- Modal Motivo Anulación -->
+    <div class="modal fade" id="modalMotivoAnulacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Motivo Anulación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDetalleAbono">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Usuario Responsable</label>
+                                    <input type="text" class="form-control form-control-sm inputUsuarioAnulacion" readonly id="formrow-firstname-input">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Fecha Anulación</label>
+                                    <input type="text" class="form-control form-control-sm inputFechaAnulacion" readonly id="formrow-firstname-input">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label" for="formrow-firstname-input">Motivo</label>
+                                    <textarea name="" class="form-control inputMotivoAnulacion" readonly cols="20" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    {{-- Modal Ver Locales --}}
     <div id="modalLocales" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">

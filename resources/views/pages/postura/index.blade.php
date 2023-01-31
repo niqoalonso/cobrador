@@ -85,7 +85,6 @@
     <!-- End Page-content -->
 
     <!-- Modal Nueva Postura -->
-
     <div class="modal fade" id="infoDetalleAbono" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -169,7 +168,6 @@
     </div>
 
     <!-- Modal Ver Postura -->
-
     <div class="modal fade" id="modalVerPostura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -223,15 +221,15 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-xs btnAnular" onclick="anularPostura(this.id)" >Anular</button>
-                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-info btn-xs btnMotivoAnulacion" style="display: none;" onclick="verMotivoAnulacion(this.id)"><i class="fa fa-info-circle"></i> Motivo Anulación</button>
+                    <button type="button" class="btn btn-danger btn-xs btnAnular" style="display: none;" onclick="anularPostura(this.id)"><i class="fa fa-ban"></i> Anular</button>
+                    <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal Anular Postura -->
-
     <div class="modal fade" id="modalAnularPostura" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -252,8 +250,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-xs">Confirmar Anulación</button>
-                        <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-check-circle"></i> Confirmar Anulación</button>
+                        <button type="button" class="btn btn-light btn-xs" data-bs-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -261,7 +259,6 @@
     </div>
 
     {{-- Modal Ver Locales --}}
-
     <div id="modalLocales" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -298,6 +295,7 @@
             </div>
         </div>
     </footer>
+
 @endsection
 
 @section('js')
@@ -305,6 +303,6 @@
     <!-- alertifyjs js -->
     <script src="{{asset('assets/libs/alertifyjs/build/alertify.min.js')}}"></script>
 
-    <script src="{{asset('pages/js/Postura.js')}}"></script>
+    <script src="{{asset('pages/js/postura.js')}}"></script> 
 
 @endsection

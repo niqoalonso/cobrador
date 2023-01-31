@@ -29,7 +29,7 @@ return new class extends Migration
         DB::table('estados')->insert(['nombre' => 'Pendiente Pago']); // 9
         DB::table('estados')->insert(['nombre' => 'Factura Vencida']); // 10
 
-         //Estado Abono & Posturas
+         //Estado Abono & Posturas & Rendición
          DB::table('estados')->insert(['nombre' => 'Rendido']); // 11
          DB::table('estados')->insert(['nombre' => 'No Rendido']); // 12
          DB::table('estados')->insert(['nombre' => 'Anulado']); // 13

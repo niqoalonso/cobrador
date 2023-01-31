@@ -50,11 +50,6 @@ class RepresentanteController extends Controller
         return response()->json(['mensaje' => 'Representante creado exitosamente.']);
     }
 
-    public function show(Representante $representante)
-    {
-        //
-    }
-
     public function edit($id)
     {
         $rep = Representante::find($id);

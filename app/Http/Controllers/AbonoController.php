@@ -9,6 +9,7 @@ use App\Models\EntidadFinanciera;
 use App\Models\Factura;
 use App\Models\Arriendo;
 use Illuminate\Http\Request;
+use Auth;
 
 class AbonoController extends Controller
 {
@@ -35,7 +36,7 @@ class AbonoController extends Controller
     }
 
     public function getAbonoFactura($id)
-    {
+    {   
         $abonos = Abono::where('factura_id', $id)->get();
         $abonos->load('TipoPago');
         return response()->json($abonos);
@@ -110,7 +111,8 @@ class AbonoController extends Controller
                         'entidad_id'        => $request->entidad,
                         'factura_id'        => $factura->id_factura,
                         'tipo_pago_id'      => $request->tipo_pago,
-                        'estado_id'         => 12
+                        'estado_id'         => 12,
+                        'user_id'           => Auth::user()->id
                     ]);
                     
         $pendiente = $factura->monto_pendiente-$request->monto;
@@ -129,18 +131,41 @@ class AbonoController extends Controller
     {   
         $detalle = Abono::where('sku', $sku)->first();
         $detalle->load('TipoPago', 'EntidadFinanciera');
-        return response()->json($detalle);
+
+        $permiso = 0;
+
+        if(Auth()->user()->getRoleNames()[0] == "Administrador")
+        {
+            $permiso = 1;    // Es Administrador, asi que puede anular abonos.
+        }else{
+            if($detalle->user_id == Auth()->user()->id){ //Verificados si es propietario de haber creado el abono, si es el mismo que lo creo, puede anular, de lo contrario no puede.
+                $permiso = 1;
+            }
+        }
+
+        return response()->json(['permisoAnular' => $permiso,'detalle' => $detalle]);
     }
 
     public function anularAbono(Request $request)
     {   
         $fecha = new \DateTime();
 
-        $data = Abono::updateOrCreate(['id_abono' => $request->id],['motivo' => $request->motivo, 'solicitud_anulacion' => 1, 'estado_id' => 13, 'fecha_anulacion' => $fecha->format('Y-m-d')]);
+        $data = Abono::updateOrCreate(['id_abono' => $request->id],['motivo' => $request->motivo, 
+                                                                    'solicitud_anulacion' => 1, 
+                                                                    'estado_id' => 13, 
+                                                                    'fecha_anulacion' => $fecha->format('Y-m-d'), 
+                                                                    'user_id_anulacion' => Auth()->user()->id
+                                                                ]);
         $factura = Factura::find($data->factura_id);
         Factura::updateOrCreate(['id_factura' => $factura->id_factura],['monto_pendiente' => $factura->monto_pendiente+$data->monto, 'estado_id' => 9]);
         
         return response()->json($factura->id_factura);
+    }
+
+    public function verMotivoAnulacionAbono($id)
+    {
+        $abono = Abono::where('id_abono', $id)->with('UserAnulacion')->first();
+        return response()->json($abono);
     }
 
     //Anulacion Abonos
